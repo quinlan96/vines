@@ -1,6 +1,6 @@
 const sqlite3 = require('sqlite3').verbose();
 
-const DBSOURCE = "/home/server/Downloads/vines.sqlite";
+const DBSOURCE = "/home/robbie/Downloads/vines.sqlite";
 
 let db = new sqlite3.Database(DBSOURCE, (err) => {
 	if (err) {
