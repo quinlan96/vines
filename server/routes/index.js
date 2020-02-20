@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const shuffle = require('../utils/shuffle');
+const db = require('../database');
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/api', function(req, res, next) {
   const sql = "SELECT * FROM vines";
 
   db.all(sql, (err, rows) => {
