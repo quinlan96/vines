@@ -38,10 +38,10 @@ export default {
       this.player.playlist(this.vines.map((vine) => {
         return {
           sources: [{
-            src: `${process.env.VUE_APP_API_BASE}/vines/${vine.video_id}/${vine.video_id}.mp4`,
+            src: `${process.env.VUE_APP_API_STATIC}/${vine.video_id}/${vine.video_id}.mp4`,
             type: 'video/mp4'
           }],
-          poster: `${process.env.VUE_APP_API_BASE}/vines/${vine.video_id}/${vine.video_id}.jpg`
+          poster: `${process.env.VUE_APP_API_STATIC}/${vine.video_id}/${vine.video_id}.jpg`
         }
       }))
 
