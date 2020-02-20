@@ -1,21 +1,21 @@
-const express = require('express');
-const router = express.Router();
-const shuffle = require('../utils/shuffle');
-const db = require('../database');
+const express = require('express')
+const router = express.Router()
+const shuffle = require('../utils/shuffle')
+const db = require('../database')
 
 /* GET home page. */
 router.get('/api', function(req, res, next) {
-  const sql = "SELECT * FROM vines LIMIT 60";
+  const sql = 'SELECT * FROM vines LIMIT 60'
 
   db.all(sql, (err, rows) => {
-	if(err) {
-		return err;
-	}
+    if (err) {
+      return err
+    }
 
-	shuffle(rows);
+    shuffle(rows)
 
-    res.json(rows);
-  });
-});
+    res.json(rows)
+  })
+})
 
-module.exports = router;
+module.exports = router
