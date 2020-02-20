@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../database');
 const shuffle = require('../utils/shuffle');
 
 /* GET home page. */
