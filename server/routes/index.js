@@ -5,7 +5,7 @@ const db = require('../database');
 
 /* GET home page. */
 router.get('/api', function(req, res, next) {
-  const sql = "SELECT * FROM vines";
+  const sql = "SELECT * FROM vines LIMIT 60";
 
   db.all(sql, (err, rows) => {
 	if(err) {
