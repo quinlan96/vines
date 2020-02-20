@@ -2,6 +2,7 @@ const { Schema, model } = require('mongoose')
 
 const schema = Schema(
 	{
+		videoId: String,
 		title: String,
 		description: String,
 		url: String,
