@@ -4,6 +4,7 @@ const schema = Schema(
 	{
 		title: String,
 		description: String,
+		url: String,
 		user: {
 			type: Schema.Types.ObjectId,
 			ref: 'User'
