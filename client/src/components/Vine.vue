@@ -30,7 +30,7 @@ export default {
     }
   },
   mounted() {
-    this.dataDir = `${process.env.VUE_APP_API_BASE}/vines/${this.vine.video_id}`
+    this.dataDir = `${process.env.VUE_APP_API_STATIC}/${this.vine.video_id}`
   }
 }
 </script>
