@@ -1,21 +1,16 @@
 const express = require('express')
 const router = express.Router()
 const shuffle = require('../utils/shuffle')
-const db = require('../database')
+const Vine = require('../db/Vine')
 
 /* GET home page. */
-router.get('/api', function(req, res, next) {
-  const sql = 'SELECT * FROM vines LIMIT 60'
-
-  db.all(sql, (err, rows) => {
-    if (err) {
-      return err
-    }
-
-    shuffle(rows)
-
-    res.json(rows)
-  })
+router.get('/api', async function(req, res, next) {
+	Vine.find({})
+		.then(docs => {
+			const shuffled = shuffle([...docs])
+			res.json(shuffled)
+		})
+		.catch(err => next(err))
 })
 
 module.exports = router

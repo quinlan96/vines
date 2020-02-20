@@ -1,10 +1,13 @@
-const { Schema, Model } = require('mongoose')
+const { Schema, model } = require('mongoose')
 
-const schema = Schema({
-  username: String,
-  url: String
-}, {
-  timestamps: true
-})
+const schema = Schema(
+	{
+		username: String,
+		url: String
+	},
+	{
+		timestamps: true
+	}
+)
 
-export default Model('User', schema)
+module.exports = model('User', schema)
