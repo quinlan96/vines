@@ -14,4 +14,4 @@ const schema = Schema(
 	}
 )
 
-module.exports = model('User', schema)
+module.exports = model('Vine', schema)
