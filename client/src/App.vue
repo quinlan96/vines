@@ -4,18 +4,14 @@
   </div>
 </template>
 
-<style>
+<style lang="scss">
+@import "assets/scss/_variables";
+@import "~bootstrap/scss/bootstrap";
+
 body {
-  background-color: #1d1d1d;
+  background-color: $gray-800;
+  color: $light;
   margin: 0;
   padding: 0;
-}
-
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
 }
 </style>

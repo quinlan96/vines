@@ -1,21 +1,19 @@
 <template>
 	<div>
 		<Navbar />
-		<VinePlaylist />
+		<UploadForm class="container mt-4" />
 	</div>
 </template>
 
 <script>
 import Navbar from '@/components/Navbar.vue'
-import VinePlaylist from '@/components/vines/VinePlaylist.vue'
+import UploadForm from '@/components/UploadForm.vue'
 
 export default {
-	name: 'Playlist',
-	mounted() {
-	},
+	name: 'Upload',
 	components: {
 		Navbar,
-		VinePlaylist
+		UploadForm
 	}
 }
 </script>
