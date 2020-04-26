@@ -9,51 +9,50 @@
 
 <script>
 export default {
-  name: 'Vine',
-  props: ['vine'],
-  data () {
-    return {
-      clicked: false,
-      dataDir: ''
-    }
-  },
-  methods: {
-    toggleVideo() {
-      if(this.$refs.video.paused) {
-        this.$refs.video.play()
-      } else {
-        this.$refs.video.pause()
-      }
-    },
-    loadVideo() {
-      this.clicked = true
-    }
-  },
-  mounted() {
-    this.dataDir = `${process.env.VUE_APP_API_STATIC}/${this.vine.video_id}`
-  }
+	name: 'Vine',
+	props: ['vine'],
+	data() {
+		return {
+			clicked: false,
+			dataDir: ''
+		}
+	},
+	methods: {
+		toggleVideo() {
+			if (this.$refs.video.paused) {
+				this.$refs.video.play()
+			} else {
+				this.$refs.video.pause()
+			}
+		},
+		loadVideo() {
+			this.clicked = true
+		}
+	},
+	mounted() {
+		this.dataDir = `${process.env.VUE_APP_API_STATIC}/${this.vine.videoId}`
+	}
 }
 </script>
 
 <style scoped>
 .vine {
-  display: flex;
-  width: 33.3333%;
-  cursor: pointer;
+	display: flex;
+	width: 33.3333%;
+	cursor: pointer;
 }
 
 .vine video {
-  width: 100%;
+	width: 100%;
 }
 
 video::-internal-media-controls-overlay-cast-button {
-  display: none;
+	display: none;
 }
 
 @media screen and (max-width: 500px) {
-  .vine {
-    width: 50%;
-  }
-
+	.vine {
+		width: 50%;
+	}
 }
 </style>
