@@ -9,6 +9,7 @@ const uri = process.env.MONGODB_CONNECTION_STRING
 const options = {
 	useNewUrlParser: true,
 	useUnifiedTopology: true,
+	useCreateIndex: true,
 	authSource: 'admin'
 }
 

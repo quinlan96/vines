@@ -31,7 +31,7 @@ db()
 		server.on('listening', onListening)
 	})
 	.catch(() => {
-		throw "Couldn't connect to database. Is MongoDB running?"
+		console.log("Couldn't connect to database. Is MongoDB running?")
 	})
 
 /**
