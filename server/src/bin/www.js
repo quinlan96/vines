@@ -7,7 +7,7 @@ import http from 'http'
  * Get port from environment and store in Express.
  */
 
-const port = normalizePort(process.env.PORT || '4000')
+const port = normalizePort(process.env.SERVER_PORT || '4000')
 
 app.set('port', port)
 

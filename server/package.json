@@ -6,7 +6,7 @@
 		"dev": "nodemon --ignore src/public/static --exec 'babel-node -r ./node_modules/dotenv/config ./src/bin/www.js'",
 		"format": "prettier \"./**/*.js\" --write",
 		"build": "babel src/ -d dist/",
-		"start": "NODE_ENV=production node -r dotenv/config dist/bin/www.js"
+		"start": "node dist/bin/www.js"
 	},
 	"dependencies": {
 		"body-parser": "^1.19.0",
@@ -28,12 +28,16 @@
 		"@babel/core": "^7.11.4",
 		"@babel/node": "^7.10.5",
 		"@babel/preset-env": "^7.11.0",
+		"@babel/plugin-transform-runtime": "^7.11.0",
 		"nodemon": "^2.0.4",
 		"prettier": "^1.19.1"
 	},
 	"babel": {
 		"presets": [
 			"@babel/preset-env"
+		],
+		"plugins": [
+			"@babel/plugin-transform-runtime"
 		],
 		"ignore": [
 			"../public/static"
