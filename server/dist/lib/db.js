@@ -1,25 +1,21 @@
 "use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports["default"] = connect;
-
-var _mongoose = _interopRequireDefault(require("mongoose"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
 /**
  * @file Initialises the MongoDB connection.
  */
-console.log(process.env);
-var uri = process.env.MONGODB_CONNECTION_STRING;
-var options = {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  authSource: 'admin'
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-
+Object.defineProperty(exports, "__esModule", { value: true });
+const mongoose_1 = __importDefault(require("mongoose"));
+const uri = process.env.MONGODB_CONNECTION_STRING;
+const options = {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    authSource: 'admin'
+};
 function connect() {
-  return _mongoose["default"].connect(uri, options);
+    return mongoose_1.default.connect(uri, options);
 }
+exports.default = connect;
+//# sourceMappingURL=db.js.map

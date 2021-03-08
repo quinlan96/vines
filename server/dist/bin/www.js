@@ -1,94 +1,78 @@
 "use strict";
-
-var _db = _interopRequireDefault(require("../lib/db"));
-
-var _app = _interopRequireDefault(require("../app"));
-
-var _debug = _interopRequireDefault(require("debug"));
-
-var _http = _interopRequireDefault(require("http"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const db_1 = __importDefault(require("../lib/db"));
+const app_1 = __importDefault(require("../app"));
+const debug_1 = __importDefault(require("debug"));
+const http_1 = __importDefault(require("http"));
 /**
  * Get port from environment and store in Express.
  */
-var port = normalizePort(process.env.PORT || '4000');
-
-_app["default"].set('port', port);
-
-(0, _debug["default"])('server:server');
+const port = normalizePort(process.env.SERVER_PORT || '4000');
+app_1.default.set('port', port);
+debug_1.default('server:server');
 /**
  * Create HTTP server.
  */
-
-var server = _http["default"].createServer(_app["default"]);
+const server = http_1.default.createServer(app_1.default);
 /**
  * Listen on provided port, on all network interfaces.
  */
-
-
-(0, _db["default"])().then(function () {
-  console.log('Server running on port', port);
-  server.listen(port);
-  server.on('error', onError);
-  server.on('listening', onListening);
-})["catch"](function () {
-  throw "Couldn't connect to database. Is MongoDB running?";
+db_1.default()
+    .then(() => {
+    console.log('Server running on port', port);
+    server.listen(port);
+    server.on('error', onError);
+    server.on('listening', onListening);
+})
+    .catch(() => {
+    console.log("Couldn't connect to database. Is MongoDB running?");
 });
 /**
  * Normalize a port into a number, string, or false.
  */
-
 function normalizePort(val) {
-  var port = parseInt(val, 10);
-
-  if (isNaN(port)) {
-    // named pipe
-    return val;
-  }
-
-  if (port >= 0) {
-    // port number
-    return port;
-  }
-
-  return false;
+    const port = parseInt(val, 10);
+    if (isNaN(port)) {
+        // named pipe
+        return val;
+    }
+    if (port >= 0) {
+        // port number
+        return port;
+    }
+    return false;
 }
 /**
  * Event listener for HTTP server "error" event.
  */
-
-
 function onError(error) {
-  if (error.syscall !== 'listen') {
-    throw error;
-  }
-
-  var bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port; // handle specific listen errors with friendly messages
-
-  switch (error.code) {
-    case 'EACCES':
-      console.error(bind + ' requires elevated privileges');
-      process.exit(1);
-      break;
-
-    case 'EADDRINUSE':
-      console.error(bind + ' is already in use');
-      process.exit(1);
-      break;
-
-    default:
-      throw error;
-  }
+    if (error.syscall !== 'listen') {
+        throw error;
+    }
+    const bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
+    // handle specific listen errors with friendly messages
+    switch (error.code) {
+        case 'EACCES':
+            console.error(bind + ' requires elevated privileges');
+            process.exit(1);
+            break;
+        case 'EADDRINUSE':
+            console.error(bind + ' is already in use');
+            process.exit(1);
+            break;
+        default:
+            throw error;
+    }
 }
 /**
  * Event listener for HTTP server "listening" event.
  */
-
-
 function onListening() {
-  var addr = server.address();
-  var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
-  (0, _debug["default"])('Listening on ' + bind);
+    const addr = server.address();
+    const bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
+    debug_1.default('Listening on ' + bind);
 }
+//# sourceMappingURL=www.js.map

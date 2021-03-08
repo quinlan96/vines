@@ -1,11 +1,11 @@
 import express from 'express'
-import { Creator } from '../../db'
+import { Creator, ICreator } from '../../models/Creator'
 
 const router = express.Router()
 
 router.get('/creators', async function(req, res, next) {
 	try {
-		const result = await Creator
+		const result:Array<ICreator> = await Creator
 			.aggregate([
 				{
 					"$lookup": {
@@ -24,7 +24,7 @@ router.get('/creators', async function(req, res, next) {
 			])
 			.exec()
 
-		const creators = await Promise.all(result.map((row) => {
+		const creators = await Promise.all(result.map((row: ICreator) => {
 			return Creator.findOne(row._id)
 		}))
 

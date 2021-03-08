@@ -5,8 +5,11 @@ import csv from 'csv-parser'
 import youtubedl from 'youtube-dl'
 import { promisify } from 'util'
 import { Readable } from 'stream'
-import { Vine, Creator } from '../../db'
 import { fetchVine, fetchCreator } from '../../utils/uploadService'
+import { Mongoose } from 'mongoose'
+
+import { Creator, ICreator } from '../../models/Creator';
+import { Vine, IVine } from '../../models/Vine';
 
 
 const router = express.Router()
@@ -51,7 +54,7 @@ router.post('/upload/video', async (req, res, next) => {
 
 router.post('/upload/csv', async (req, res, next) => {
 	const rawCSV = decodeURIComponent(escape(Buffer.from(req.body.file, 'base64').toString('binary')))
-	const results = []
+	const results: Array<any> = []
 
 	Readable
 		.from([rawCSV])
@@ -74,7 +77,7 @@ router.post('/upload/csv', async (req, res, next) => {
 	})
 })
 
-const uploadVine = async (data) => {
+const uploadVine = async (data: any) => {
 	if(!data.url.match(/https:\/\/vine.co/g)) {
 		throw new Error("Vine url is not valid")
 	}
@@ -96,7 +99,7 @@ const uploadVine = async (data) => {
 	let creatorId = data.author_url ? data.author_url.replace('https://vine.co/u/', '') : ''
 	creatorId = creatorId ? creatorId : vineJson.userIdStr
 
-	const creator = createOrFindCreator(creatorId)
+	const creator = await createOrFindCreator(creatorId)
 
 	await fetchVine(vineId, vineJson.videoUrl, vineJson, 'vine')
 
@@ -111,12 +114,12 @@ const uploadVine = async (data) => {
 	await vine.save()
 }
 
-const uploadYoutube = async (data) => {
+const uploadYoutube = async (data: any) => {
 	if(!data.url.match(/youtube.com/g)) {
 		throw new Error("Youtube url is not valid")
 	}
 
-	const youtubeJson = await getYoutubeInfo(data.url, [])
+	const youtubeJson: any = await getYoutubeInfo(data.url)
 
 	const videoId = youtubeJson.id
 	const videoUrl = `https://youtube.com/watch?v=${youtubeJson.id}`
@@ -126,15 +129,15 @@ const uploadYoutube = async (data) => {
 	}
 
 	const creatorId = data.author_url ? data.author_url.replace('https://vine.co/u/', '') : ''
-	const creator = createOrFindCreator(creatorId)
+	const creator: ICreator  = await createOrFindCreator(creatorId)
 
 	await fetchVine(videoId, videoUrl, youtubeJson, 'youtube')
 
-	const vine = new Vine({
+	const vine: IVine = await Vine.create({
 		videoId:		videoId,
 		title: 			data.title,
 		description:	data.description,
-		url:			data.url
+		url:			data.ur
 	})
 
 	if(creator) {
@@ -144,7 +147,7 @@ const uploadYoutube = async (data) => {
 	await vine.save()
 }
 
-const uploadVideo = async (data) => {
+const uploadVideo = async (data: any) => {
 	let videoId = ''
 
 	if(data.url.match(/https:\/\/vine.co/g)) {
@@ -152,7 +155,7 @@ const uploadVideo = async (data) => {
 	}
 
 	if(data.url.match(/youtube.com/)) {
-		const youtubeJson = await getYoutubeInfo(data.url, [])
+		const youtubeJson: any = await getYoutubeInfo(data.url)
 		videoId = youtubeJson.id
 	}
 
@@ -162,7 +165,7 @@ const uploadVideo = async (data) => {
 
 	const creatorId = data.author_url ? data.author_url.replace('https://vine.co/u/', '') : ''
 
-	const creator = createOrFindCreator(creatorId)
+	const creator: ICreator = await createOrFindCreator(creatorId)
 
 	await fetchVine(videoId, data.file, null, 'video')
 
@@ -180,8 +183,8 @@ const uploadVideo = async (data) => {
 	await vine.save()
 }
 
-const createOrFindCreator = async (creatorId) => {
-	let creator = null
+const createOrFindCreator = async (creatorId: string): Promise<ICreator> => {
+	let creator: ICreator = null
 
 	if(creatorId) {
 		const resp = await fetch(`${vineArchive}/profiles/_/${creatorId}.json`)
@@ -196,7 +199,7 @@ const createOrFindCreator = async (creatorId) => {
 		creator = await (Creator.findOne({creatorId: creatorId}))
 
 		if(!creator) {
-			creator = new Creator({
+			creator = await Creator.create({
 				creatorId: creatorId,
 				username: creatorJson.username,
 				url: creatorJson.shareUrl
@@ -209,7 +212,7 @@ const createOrFindCreator = async (creatorId) => {
 	return creator
 }
 
-const generateId = (length) => {
+const generateId = (length: number) => {
 	const charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
 	let id = ''
 

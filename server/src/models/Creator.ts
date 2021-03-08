@@ -1,7 +1,15 @@
-import { Schema, model, Mongoose } from 'mongoose'
+import { Schema, Document, Types, model } from 'mongoose'
 import fs from 'fs'
 
-const schema = Schema(
+type Id = Types.ObjectId
+
+interface ICreator extends Document{
+	creatorId: string
+	username: string
+	url: string
+}
+
+const CreatorSchema = new Schema(
 	{
 		creatorId: String,
 		username: String,
@@ -18,14 +26,14 @@ const schema = Schema(
 	}
 )
 
-schema
+CreatorSchema
 	.virtual('vines', {
 		ref: 'Vine',
 		localField: '_id',
 		foreignField: 'creator',
 	})
 
-schema
+CreatorSchema
 	.virtual('thumbnailUrl')
 	.get(function() {
 		if(fs.existsSync(`${process.env.DATA_DIR}/creators/${this.creatorId}/${this.creatorId}.jpg`)) {
@@ -35,4 +43,9 @@ schema
 		return null
 	})
 
-export default model('Creator', schema)
+const Creator = model<ICreator>('Creator', CreatorSchema)
+
+export {
+	Creator,
+	ICreator,
+}

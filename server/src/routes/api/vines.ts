@@ -1,6 +1,6 @@
 import express from 'express'
 import createError from 'http-errors'
-import { Vine } from '../../db'
+import { Vine, IVine } from '../../models/Vine'
 import shuffle from '../../utils/shuffle'
 
 const router = express.Router()
@@ -10,7 +10,7 @@ router.get('/vines', async function(req, res, next) {
 		let query = Vine.find()
 
 		if(req.query.q) {
-			query = Vine.fuzzySearch(req.query.q)
+			// query = Vine.fuzzySearch(req.query.q)
 		}
 
 		query.sort({createdAt: -1})

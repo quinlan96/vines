@@ -1,9 +1,9 @@
 <template>
   <div class="vine">
-	<video v-if="clicked" ref="video" loop autoplay v-on:click="toggleVideo">
+	<video :class="videoClass" ref="video" loop v-on:click="toggleVideo">
       <source :src="vine.vineUrl" type="video/mp4">
     </video>
-	<img v-if="!clicked" v-on:click="loadVideo" :src="vine.thumbnailUrl" />
+	<img :class="imageClass" v-on:click="loadVideo" :src="vine.thumbnailUrl"  />
   </div>
 </template>
 
@@ -15,6 +15,15 @@ export default {
 		return {
 			clicked: false,
 			dataDir: ''
+		}
+	},
+	computed: {
+		videoClass() {
+			return !this.clicked ? 'hidden': ''
+		},
+
+		imageClass() {
+			return this.clicked ? 'hidden' : ''
 		}
 	},
 	methods: {
@@ -35,15 +44,28 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .vine {
 	display: flex;
 	width: 33.3333%;
 	cursor: pointer;
+	padding: .5rem;
+}
+
+.vine > img {
+	width: 100%;
+
+	&.hidden {
+		display: none;
+	}
 }
 
 .vine video {
 	width: 100%;
+
+	&.hidden {
+		display: none;
+	}
 }
 
 video::-internal-media-controls-overlay-cast-button {

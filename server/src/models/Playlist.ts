@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose'
 
-const schema = Schema(
+const schema = new Schema(
 	{
 		name: String,
 		vines: [Schema.Types.ObjectId]

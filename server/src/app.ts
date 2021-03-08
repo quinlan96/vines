@@ -1,5 +1,5 @@
-import express from 'express'
-import createError from 'http-errors'
+import express, { Request, Response, NextFunction } from 'express'
+import createError, { HttpError } from 'http-errors'
 import path from 'path'
 import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
@@ -32,7 +32,7 @@ app.use(function(req, res, next) {
 })
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function(err: HttpError, req: Request, res: Response, next: NextFunction) {
 	// set locals, only providing error in development
 	// res.locals.message = err.message
 	// res.locals.error = req.app.get('env') === 'development' ? err : {}

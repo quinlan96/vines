@@ -6,7 +6,7 @@ import { promisify } from 'util'
 
 const execPromise = promisify(exec);
 
-const fetchVine =  async (vineId, videoUrl, vineJson, type = 'vine') => {
+const fetchVine =  async (vineId: string, videoUrl: string, vineJson: object , type: string = 'vine') => {
 	const vineDir = `${process.env.DATA_DIR}/vines/${vineId}`
 
 	if(!fs.existsSync(vineDir)) {
@@ -32,7 +32,7 @@ const fetchVine =  async (vineId, videoUrl, vineJson, type = 'vine') => {
 	}
 }
 
-const fetchCreator =  async (creatorId, creatorJson) => {
+const fetchCreator =  async (creatorId: string, creatorJson: JSON) => {
 	const creatorDir = `${process.env.DATA_DIR}/creators/${creatorId}`
 
 	if(!fs.existsSync(creatorDir)) {
@@ -44,7 +44,7 @@ const fetchCreator =  async (creatorId, creatorJson) => {
 	}
 }
 
-const download = async (vine, path, type) => {
+const download = async (vine: string, path: string, type: string) => {
 	switch(type) {
 		case 'vine':
 			await downloadVine(vine, path)
@@ -57,10 +57,10 @@ const download = async (vine, path, type) => {
 	}
 }
 
-const downloadVine = async (url, path) => {
+const downloadVine = async (url: string, path: string) => {
 	const res = await fetch(url);
 
-	await new Promise((resolve, reject) => {
+	await new Promise<void>((resolve, reject) => {
 		const fileStream = fs.createWriteStream(path);
 
 		res.body.pipe(fileStream);
@@ -74,12 +74,12 @@ const downloadVine = async (url, path) => {
 	})
 }
 
-const downloadYoutube = async (url, path) => {
+const downloadYoutube = async (url: string, path: string) => {
 	const video = youtubedl(url, ['--format=best'], {})
 
 
 	await new Promise((resolve, reject) => {
-		video.on('end', (info) => {
+		video.on('end', () => {
 			resolve("Video finished downloading")
 		})
 
@@ -89,7 +89,7 @@ const downloadYoutube = async (url, path) => {
 	await autoScale(path)
 }
 
-const downloadVideo = async (file, path) => {
+const downloadVideo = async (file: string, path: string) => {
 	const rawVideo = decodeURIComponent(escape(Buffer.from(file, 'base64').toString('binary')))
 
 	fs.writeFileSync(path, rawVideo, 'binary')
@@ -97,12 +97,12 @@ const downloadVideo = async (file, path) => {
 	await autoScale(path)
 }
 
-const autoScale = async (path) => {
+const autoScale = async (path: string) => {
 	const ratioCmd = await execPromise(`ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 ${path}`)
 
-	const [height, width] = ratioCmd.stdout.trim().split('x')
+	const [ height, width ] = ratioCmd.stdout.trim().split('x')
 
-	const ratio = height / width
+	const ratio: number = parseFloat(height) / parseFloat(width)
 
 	if(ratio != 1) {
 		const cropCmd = await execPromise(`ffmpeg -i ${path} -t 1 -vf cropdetect -f null - 2>&1 | awk '/crop/ { print $NF }' | tail -1`)
