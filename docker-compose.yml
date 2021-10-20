@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: ./client
+    container_name: vines
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    env_file: .env
+
+  backend:
+    build: ./server
+    ports:
+      - "3001:3001"
+    env_file: .env
+
+  db:
+    image: mongo:latest
+    restart: unless-stopped
+    expose:
+      - 27017
+    volumes:
+      - vines_db:/data/db
+    env_file: .env
+
+volumes:
+  vines_db:
