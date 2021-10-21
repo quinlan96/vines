@@ -18,4 +18,4 @@ RUN npm run build
 
 EXPOSE ${PORT}
 
-CMD sleep 3600
+CMD npm run start
