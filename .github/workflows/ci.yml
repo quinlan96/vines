@@ -8,7 +8,8 @@ env:
   REGISTRY: ghcr.io
   FRONTEND_IMAGE_NAME: Quinlan96/vines-frontend
   BACKEND_IMAGE_NAME: Quinlan96/vines-backend
-
+  FRONTEND_WEBHOOK: https://portainer.quinl.in/api/webhooks/638e27d1-7bf4-4432-974d-7f3ddb1afbfb
+  BACKEND_WEBHOOK: https://portainer.quinl.in/api/webhooks/df9deb07-74ab-4117-9cba-35fd9ee313fd
 
   # github.repository as <account>/<repo>
   # IMAGE_NAME: ${{ github.repository }}
@@ -52,6 +53,12 @@ jobs:
           tags: ${{ steps.frontend-meta.outputs.tags }}
           labels: ${{ steps.frontend-meta.outputs.labels }}
 
+      - name: Deploy Frontend Docker image
+        uses: fjogeleit/http-request-action@master
+        with:
+          url: ${{ env.FRONTEND_WEBHOOK }}
+          method: 'POST'
+
       # Extract metadata (tags, labels) for Docker
       # https://github.com/docker/metadata-action
       - name: Extract Backend Docker metadata
@@ -69,3 +76,9 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.backend-meta.outputs.tags }}
           labels: ${{ steps.backend-meta.outputs.labels }}
+
+      - name: Deploy Backend Docker image
+        uses: fjogeleit/http-request-action@master
+        with:
+          url: ${{ env.BACKEND_WEBHOOK }}
+          method: 'POST'
