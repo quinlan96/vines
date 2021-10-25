@@ -54,7 +54,7 @@ jobs:
           tags: ${{ steps.frontend-meta.outputs.tags }}
           labels: ${{ steps.frontend-meta.outputs.labels }}
           build-args: |
-            REACT_APP_API_BASE: https://vines.quinl.in/api
+            REACT_APP_API_BASE=https://vines.quinl.in/api
 
       - name: Deploy Frontend Docker image
         uses: fjogeleit/http-request-action@master
