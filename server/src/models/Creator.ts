@@ -1,51 +1,50 @@
-import { Schema, Document, Types, model } from 'mongoose'
-import fs from 'fs'
+import { Schema, Document, Types, model } from 'mongoose';
+import fs from 'fs';
 
-type Id = Types.ObjectId
+type Id = Types.ObjectId;
 
-interface ICreator extends Document{
-	creatorId: string
-	username: string
-	url: string
+export interface ICreator extends Document<Id> {
+  creatorId: string;
+  username: string;
+  url: string;
 }
 
 const CreatorSchema = new Schema(
-	{
-		creatorId: String,
-		username: String,
-		url: String
-	},
-	{
-		timestamps: true,
-		toObject: {
-			virtuals: true
-		},
-		toJSON: {
-			virtuals: true
-		}
-	}
-)
+  {
+    creatorId: String,
+    username: String,
+    url: String,
+  },
+  {
+    timestamps: true,
+    toObject: {
+      virtuals: true,
+    },
+    toJSON: {
+      virtuals: true,
+    },
+  }
+);
 
-CreatorSchema
-	.virtual('vines', {
-		ref: 'Vine',
-		localField: '_id',
-		foreignField: 'creator',
-	})
+CreatorSchema.virtual('vines', {
+  ref: 'Vine',
+  localField: '_id',
+  foreignField: 'creator',
+});
 
-CreatorSchema
-	.virtual('thumbnailUrl')
-	.get(function() {
-		if(fs.existsSync(`${process.env.DATA_DIR}/creators/${this.creatorId}/${this.creatorId}.jpg`)) {
-			return `${process.env.API_BASE}/static/creators/${this.creatorId}/${this.creatorId}.jpg`
-		}
+CreatorSchema.virtual('thumbnailUrl').get(function thumbnailUrl(this: ICreator) {
+  const dataDir = process.env.DATA_DIR ? process.env.DATA_DIR : '';
+  const apiBase = process.env.API_BASE ? process.env.API_BASE : '';
 
-		return null
-	})
+  if (
+    fs.existsSync(
+      `${dataDir}/creators/${this.creatorId}/${this.creatorId}.jpg`
+    )
+  ) {
+    return `${apiBase}/static/creators/${this.creatorId}/${this.creatorId}.jpg`;
+  }
 
-const Creator = model<ICreator>('Creator', CreatorSchema)
+  return null;
+});
 
-export {
-	Creator,
-	ICreator,
-}
+export const Creator = model<ICreator>('Creator', CreatorSchema);

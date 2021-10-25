@@ -1,11 +1,4 @@
-/**
- * @file Initialises the MongoDB connection.
- */
+import mongoose from 'mongoose';
+import config from 'config';
 
-import mongoose from 'mongoose'
-
-const uri = process.env.MONGODB_CONNECTION_STRING
-
-export default function connect() {
-	return mongoose.connect(uri)
-}
+export default () => mongoose.connect(config.get('databaseUri'));

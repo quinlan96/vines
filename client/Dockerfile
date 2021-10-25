@@ -20,7 +20,7 @@ FROM nginx:latest
 
 ARG PORT=${CLIENT_PORT}
 
-COPY --from=build /home/node/app/dist /usr/share/nginx/html
+COPY --from=build /home/node/app/build /usr/share/nginx/html
 
 RUN rm /etc/nginx/conf.d/default.conf
 

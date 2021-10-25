@@ -1,0 +1,39 @@
+{
+    "root": true,
+    "extends": [
+        "airbnb",
+        "prettier",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:react/recommended",
+        "plugin:react-hooks/recommended"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "project": ["./tsconfig.json"]
+    },
+    "plugins": [
+        "react",
+        "@typescript-eslint"
+    ],
+    "rules": {
+        "no-param-reassign": 0,
+        "no-use-before-define": 0,
+        "import/extensions": 0,
+        "react/jsx-filename-extension": [
+            1,
+            {
+                "extensions": [".js", ".ts", ".tsx"]
+            }
+        ],
+        "no-shadow": 0,
+        "jsx-a11y/media-has-caption": 0,
+        "@typescript-eslint/no-shadow": ["error"]
+    },
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "extensions": [".js", ".jsx", ".ts", ".tsx"]
+            }
+        }
+    }
+}

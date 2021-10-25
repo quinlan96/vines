@@ -18,11 +18,13 @@ services:
   db:
     image: mongo:latest
     restart: unless-stopped
-    expose:
-      - 27017
+    ports:
+      - "27017:27017"
     volumes:
-      - vines_db:/data/db
-    env_file: .env
+      - db_data:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=example
 
 volumes:
-  vines_db:
+  db_data:
