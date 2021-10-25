@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "nodemon",
     "build": "tsc",
-    "start": "node -r ./node_modules/dotenv/config ./dist",
+    "start": "node -r ./node_modules/dotenv/config ./dist/index.js",
     "format": "prettier -w .",
     "lint": "eslint ."
   },

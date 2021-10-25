@@ -10,6 +10,7 @@ env:
   BACKEND_IMAGE_NAME: Quinlan96/vines-backend
   FRONTEND_WEBHOOK: https://portainer.quinl.in/api/webhooks/638e27d1-7bf4-4432-974d-7f3ddb1afbfb
   BACKEND_WEBHOOK: https://portainer.quinl.in/api/webhooks/df9deb07-74ab-4117-9cba-35fd9ee313fd
+  REACT_APP_API_BASE: https://vines.quinl.in/api
 
   # github.repository as <account>/<repo>
   # IMAGE_NAME: ${{ github.repository }}
