@@ -11,6 +11,8 @@ const Home: React.FC = () => {
         dispatch(fetchVines());
     }, [dispatch]);
 
+    console.log(vines);
+
     return (
         <div className="container mx-auto">
             <VineGrid vines={vines} />

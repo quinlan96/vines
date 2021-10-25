@@ -16,9 +16,14 @@ export const selectVines = (state: StoreState): Vine[] => state.vine.vines;
 export const fetchVines = createAsyncThunk(
     'vine/fetchVines',
     async () => {
-        const { data: resp } = await getVines();
+        try {
+            const { data: resp } = await getVines();
 
-        return resp.data as Vine[];
+            return resp.data as Vine[];
+        } catch(e) {
+            console.log(e);
+            return new Array<Vine>();
+        }
     },
 );
 

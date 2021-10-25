@@ -1,13 +1,18 @@
 # Use node image to build Vue app
 FROM node:latest AS build
 
-RUN mkdir -p /home/node/app/node_modules && chown -R node:node /home/node/app
+RUN mkdir -p /app/node_modules && chown -R node:node /app
 
-WORKDIR /home/node/app
+WORKDIR /app
 
 COPY --chown=node:node package*.json ./
 
+COPY --chown=node:node .env* ./
+
 COPY --chown=node:node . .
+
+ARG REACT_APP_API_BASE=$REACT_APP_API_BASE
+ENV REACT_APP_API_BASE=$REACT_APP_API_BASE
 
 USER node
 
@@ -20,7 +25,7 @@ FROM nginx:latest
 
 ARG PORT=${CLIENT_PORT}
 
-COPY --from=build /home/node/app/build /usr/share/nginx/html
+COPY --from=build /app/build /usr/share/nginx/html
 
 RUN rm /etc/nginx/conf.d/default.conf
 
