@@ -6,8 +6,6 @@
 import path from 'path';
 import dotenv from 'dotenv';
 
-process.env.NODE_CONFIG_DIR = path.join(__dirname, '../config');
-
 (() => {
   dotenv.config({
     path: path.join(__dirname, '../../.env'),

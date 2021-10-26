@@ -1,4 +1,4 @@
-export default {
+module.exports = {
     host: "HOST",
     port: "PORT",
     storageDir: "STORAGE_DIR",
