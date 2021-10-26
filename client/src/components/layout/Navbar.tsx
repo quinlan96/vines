@@ -8,10 +8,10 @@ const Navbar: React.FC = () => (
         <div className="flex items-center flex-shrink-0 text-white mr-6">
             <Link to="/" className="font-semibold text-xl tracking-tight"><FontAwesomeIcon icon={faVine} size="lg" /></Link>
         </div>
-        <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
+        <div className="w-auto block flex-grow flex items-center">
             <div className="text-sm lg:flex-grow">
-                <Link to="/creators" className="block mt-4 lg:inline-block lg:mt-0 text-gray-200 hover:text-white">Creators</Link>
-                <Link to="/upload" className="block mt-4 ml-4 lg:inline-block lg:mt-0 text-gray-200 hover:text-white">Upload</Link>
+                <Link to="/creators" className="inline-block mt-0 text-gray-200 hover:text-white">Creators</Link>
+                <Link to="/upload" className="inline-block ml-4 text-gray-200 hover:text-white">Upload</Link>
             </div>
         </div>
     </nav>

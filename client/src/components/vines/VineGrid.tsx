@@ -7,7 +7,7 @@ interface VineGridProps {
 }
 
 const VineGrid: React.FC<VineGridProps> = ({ vines }) => (
-    <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 xs:grid-cols-2 gap-4">
+    <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-4 mx-4 md:m-0">
         { vines.map((vine) => <Vine key={vine.id} data={vine} />) }
     </div>
 );

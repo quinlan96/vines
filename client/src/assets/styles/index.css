@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+video.vine::-internal-media-controls-overlay-cast-button {
+    display: none;
+}
+
+video.vine {
+    -webkit-tap-highlight-color: transparent;
+}

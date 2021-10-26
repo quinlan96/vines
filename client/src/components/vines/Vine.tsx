@@ -10,10 +10,10 @@ const Vine: React.FC<VineProps> = ({ data }) => {
     const [clicked, setClicked] = useState<boolean>(false);
 
     const loadVideo = () => {
-        setClicked(true);
 
         if (videoRef && videoRef.current) {
             videoRef.current.addEventListener('loadeddata', (e) => {
+                setClicked(true);
                 videoRef?.current?.play();
             });
 
@@ -32,7 +32,7 @@ const Vine: React.FC<VineProps> = ({ data }) => {
     };
 
     return (
-        <div className="overflow-hidden rounded-md cursor-pointer">
+        <div className="vine overflow-hidden rounded-md cursor-pointer">
             <video className={clicked ? '' : 'hidden'} ref={videoRef} loop preload="none" onClick={toggleVideo}>
                 <source src={data.vineUrl} type="video/mp4" />
             </video>
