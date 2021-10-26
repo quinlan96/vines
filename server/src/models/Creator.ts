@@ -1,4 +1,5 @@
 import { Schema, Document, Types, model } from 'mongoose';
+import config from 'config';
 import fs from 'fs';
 
 type Id = Types.ObjectId;
@@ -33,15 +34,15 @@ CreatorSchema.virtual('vines', {
 });
 
 CreatorSchema.virtual('thumbnailUrl').get(function thumbnailUrl(this: ICreator) {
-  const dataDir = process.env.DATA_DIR ? process.env.DATA_DIR : '';
-  const apiBase = process.env.API_BASE ? process.env.API_BASE : '';
+  const storagePath: string = config.get('storagePath');
+  const apiBase: string = config.get('apiBase');
 
   if (
     fs.existsSync(
-      `${dataDir}/creators/${this.creatorId}/${this.creatorId}.jpg`
+      `${storagePath}/creators/${this.creatorId}/${this.creatorId}.jpg`
     )
   ) {
-    return `${apiBase}/static/creators/${this.creatorId}/${this.creatorId}.jpg`;
+    return `${apiBase}/storage/creators/${this.creatorId}/${this.creatorId}.jpg`;
   }
 
   return null;

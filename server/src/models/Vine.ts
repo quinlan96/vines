@@ -38,13 +38,13 @@ const VineSchema: Schema = new Schema(
 VineSchema.virtual('vineUrl').get(function vineUrl(this: IVine) {
   const apiBase: string = config.get('apiBase');
 
-  return `${apiBase}/static/vines/${this.videoId}/${this.videoId}.mp4`;
+  return `${apiBase}/storage/vines/${this.videoId}/${this.videoId}.mp4`;
 });
 
 VineSchema.virtual('thumbnailUrl').get(function thumbnailUrl(this: IVine) {
   const apiBase: string = config.get('apiBase');
 
-  return `${apiBase}/static/vines/${this.videoId}/${this.videoId}.jpg`;
+  return `${apiBase}/storage/vines/${this.videoId}/${this.videoId}.jpg`;
 });
 
 // schema.plugin(mongooseFuzzySearching, {

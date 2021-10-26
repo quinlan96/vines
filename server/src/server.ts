@@ -28,7 +28,7 @@ app.use(cors());
 
 app.use('/', indexRouter);
 app.use('/api', apiRouter);
-app.use('/static', express.static(config.get('storagePath')));
+app.use('/storage', express.static(config.get('storagePath')));
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
