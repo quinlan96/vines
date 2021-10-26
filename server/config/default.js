@@ -4,9 +4,7 @@ const path = require('path');
 module.exports = {
     host: 'http://localhost',
     port: 3001,
-    apiBase: defer(function () {
-        return `${this.host}:${this.port}`;
-    }),
+    apiBase: 'ENV_VARIABLE',
     relativeStoragePath: '/storage',
     storagePath: defer(function () {
         return path.join(__dirname, '../..', this.relativeStoragePath);

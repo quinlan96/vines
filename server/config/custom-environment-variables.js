@@ -1,6 +1,7 @@
 module.exports = {
     host: "HOST",
     port: "PORT",
+    apiBase: "API_BASE",
     storageDir: "STORAGE_DIR",
     db: {
         host: "DB_HOST",
