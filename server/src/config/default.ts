@@ -31,7 +31,7 @@ export default {
         password: '',
         database: 'vines',
     },
-    databaseUri: deferConfig(function databaseUri(this: AppConfig) {
-        return `mongodb://${this.db.username}:${this.db.password}@${this.db.host}:${this.db.port}`;
+    databaseUri: deferConfig(function databaseUri(this: { default: AppConfig }) {
+        return `mongodb://${this.default.db.username}:${this.default.db.password}@${this.default.db.host}:${this.default.db.port}`;
     }),
 };
