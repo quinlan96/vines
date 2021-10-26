@@ -19,6 +19,6 @@ module.exports = {
         database: 'vines',
     },
     databaseUri: defer(function () {
-        return `mongodb://${this.db.username}:${this.db.password}@${this.db.host}:${this.db.port}`;
+        return `mongodb://${this.db.username}:${this.db.password}@${this.db.host}:${this.db.port}/${this.db.database}`;
     }),
 };
