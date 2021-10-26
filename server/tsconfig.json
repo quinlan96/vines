@@ -1,8 +1,7 @@
 {
   "compilerOptions": {
     "outDir": "./dist",
-    "rootDir": "./src",
-    "baseUrl": "./",
+    "baseUrl": ".",
     "target": "es5",
     "lib": [
       "dom",
@@ -22,9 +21,6 @@
     "isolatedModules": true
   },
   "include": [
-    "./src/**/*.ts"
-  ],
-  "exclude": [
-    "./config/**/*"
+    "src/**/*.ts"
   ]
 }

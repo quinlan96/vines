@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import IVine from '../../entities/Vine';
 
 interface VineProps {
@@ -8,11 +8,6 @@ interface VineProps {
 const Vine: React.FC<VineProps> = ({ data }) => {
     const videoRef = useRef<HTMLVideoElement | null>(null);
     const [clicked, setClicked] = useState<boolean>(false);
-
-    useEffect(() => {
-        // eslint-disable-next-line
-        console.log(data);
-    }, [data]);
 
     const loadVideo = () => {
         setClicked(true);
@@ -27,8 +22,6 @@ const Vine: React.FC<VineProps> = ({ data }) => {
     };
 
     const toggleVideo = () => {
-        console.log('Toggle video');
-
         if (videoRef && videoRef.current) {
             if (videoRef.current.paused) {
                 videoRef.current.play();
@@ -39,8 +32,8 @@ const Vine: React.FC<VineProps> = ({ data }) => {
     };
 
     return (
-        <div className="overflow-hidden rounded-md">
-            <video className={clicked ? '' : 'hidden'} ref={videoRef} loop onClick={toggleVideo}>
+        <div className="overflow-hidden rounded-md cursor-pointer">
+            <video className={clicked ? '' : 'hidden'} ref={videoRef} loop preload="none" onClick={toggleVideo}>
                 <source src={data.vineUrl} type="video/mp4" />
             </video>
             <img className={`w-full${clicked ? ' hidden' : ''}`} src={data.thumbnailUrl} alt={data.title} onClick={loadVideo} onKeyPress={loadVideo} role="presentation" />

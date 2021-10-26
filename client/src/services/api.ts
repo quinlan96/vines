@@ -1,8 +1,6 @@
 import axios, { AxiosPromise } from 'axios';
 import Vine from '../entities/Vine';
 
-console.log(process.env);
-
 const client = axios.create({
   baseURL: process.env.REACT_APP_API_BASE,
   responseType: 'json',

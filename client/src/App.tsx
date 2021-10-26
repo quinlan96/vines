@@ -13,7 +13,7 @@ const App: React.FC = () => (
   <Provider store={store}>
     <Router>
       <Navbar />
-      <div className="pt-4 h-screen bg-gray-800">
+      <div className="pt-4 min-h-screen bg-gray-800">
         { renderRoutes(routes) }
       </div>
     </Router>

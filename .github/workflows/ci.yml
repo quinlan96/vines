@@ -10,7 +10,7 @@ env:
   BACKEND_IMAGE_NAME: Quinlan96/vines-backend
   FRONTEND_WEBHOOK: https://portainer.quinl.in/api/webhooks/638e27d1-7bf4-4432-974d-7f3ddb1afbfb
   BACKEND_WEBHOOK: https://portainer.quinl.in/api/webhooks/df9deb07-74ab-4117-9cba-35fd9ee313fd
-  REACT_APP_API_BASE: https://vines.quinl.in/api
+  REACT_APP_API_BASE: https://vines.quinl.in/api/v1
 
   # github.repository as <account>/<repo>
   # IMAGE_NAME: ${{ github.repository }}
@@ -54,7 +54,7 @@ jobs:
           tags: ${{ steps.frontend-meta.outputs.tags }}
           labels: ${{ steps.frontend-meta.outputs.labels }}
           build-args: |
-            REACT_APP_API_BASE=https://vines.quinl.in/api
+            REACT_APP_API_BASE=${{ env.REACT_APP_API_BASE }}
 
       - name: Deploy Frontend Docker image
         uses: fjogeleit/http-request-action@master

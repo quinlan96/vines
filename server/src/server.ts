@@ -4,8 +4,10 @@ import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import cors from 'cors';
 import config from 'config';
+import swaggerUi from 'swagger-ui-express';
 
 import db from './lib/db';
+import swaggerSpec from './lib/swagger';
 import indexRouter from './routes/index';
 import apiRouter from './routes/api';
 
@@ -27,8 +29,11 @@ app.use(cookieParser());
 app.use(cors());
 
 app.use('/', indexRouter);
-app.use('/api', apiRouter);
+app.use('/api/v1', apiRouter);
 app.use('/storage', express.static(config.get('storagePath')));
+
+// eslint-disable-next-line
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

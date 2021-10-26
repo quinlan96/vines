@@ -1,15 +1,43 @@
 import express, { Request } from 'express';
 import createError from 'http-errors';
 import { Vine, IVine } from '../../models/Vine';
+import { ApiData, PaginationParams } from './index';
 
 const router = express.Router();
 
-router.get('/vines', async (req, res, next) => {
+/**
+ * @swagger
+ * /api/v1/vines:
+ *   get:
+ *     summary: Get vines
+ *     tags:
+ *       - Vines
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - $ref: '#/parameters/limit'
+ *       - $ref: '#/parameters/offset'
+ *     responses:
+ *       200:
+ *         description: Success
+ *         content:
+ *         application/json:
+ *           schema:
+ *             type: array
+ *             items:
+ *               $ref: '#/definitions/Vine'
+ */
+router.get('/vines', async (req: Request<void, ApiData<IVine[]>, void, PaginationParams>, res, next) => {
+  const limit = Number(req.query.limit) || 18;
+  const offset = Number(req.query.offset) || 0;
+
   try {
     const vines = await Vine
       .find()
+      .select('id videoId title description vineUrl thumbnailUrl createdAt updatedAt')
       .sort({ createdAt: -1 })
-      .limit(30)
+      .skip(offset)
+      .limit(limit)
       .exec();
 
     res.json({ data: vines });

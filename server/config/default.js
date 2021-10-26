@@ -7,7 +7,7 @@ module.exports = {
     apiBase: 'ENV_VARIABLE',
     relativeStoragePath: '/storage',
     storagePath: defer(function () {
-        return path.join(__dirname, '../..', this.relativeStoragePath);
+        return path.join(__dirname, '..', this.relativeStoragePath);
     }),
     db: {
         host: 'localhost',

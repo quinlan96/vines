@@ -11,6 +11,10 @@ export interface IVine extends Document {
   description: string;
   url: string;
   creator: Id | ICreator;
+  vineUrl: string;
+  thumbnailUrl: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 const VineSchema: Schema = new Schema(

@@ -2,7 +2,7 @@ module.exports = {
     host: "HOST",
     port: "PORT",
     apiBase: "API_BASE",
-    storageDir: "STORAGE_DIR",
+    storagePath: "STORAGE_PATH",
     db: {
         host: "DB_HOST",
         port: "DB_PORT",
